@@ -4,6 +4,10 @@
     "license": "MIT",
     "require": {
         "pocketmine/pocketmine-mp": "4.*",
-        "ext-curl": "*"
+        "ext-curl": "*",
+        "php": "8.0.*",
+        "php-64bit": "8.0.*",
+        "phpstan/phpstan": "*",
+        "friendsofphp/php-cs-fixer": "^3.13"
     }
 }
