@@ -59,7 +59,41 @@ class Webhook {
             Server::getInstance()->getAsyncPool()->submitTask(new SendAsyncTask($this));
             return;
         }
-        (new Sender())->send($this, false);
+        $this->sender($this, false);
+    }
+
+    /**
+     * @param Webhook $webhook
+     * @param bool    $async
+     * @return void
+     * @throws PMDiscordAPIException
+     */
+    public function sender(Webhook $webhook, bool $async = true) : void {
+        if ($async) {
+            Server::getInstance()->getAsyncPool()->submitTask(new SendAsyncTask($webhook));
+            return;
+        }
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $webhook->getUrl());
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($webhook->getData()));
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+            'Content-Type: application/json',
+        ]);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        $result = curl_exec($ch);
+        curl_close($ch);
+        if ($result === false) {
+            throw new PMDiscordAPIException('cURLの疎通に失敗しました');
+        } elseif (!empty($result)) {
+            $result_array = json_decode($result, true);
+            if (in_array('code', $result_array, true) && in_array('message', $result_array, true)) {
+                throw new PMDiscordAPIException("{$result_array['code']} : {$result_array['message']}");
+            } else {
+                throw new PMDiscordAPIException('WebHookを正常に送信できませんでした');
+            }
+        }
     }
 
     /**
