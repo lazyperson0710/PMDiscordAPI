@@ -5,3 +5,5 @@
 .idea/sqldialects.xml
 
 vendor/
+.php-cs-fixer.cache
+composer.phar
