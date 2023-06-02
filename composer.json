@@ -3,10 +3,10 @@
     "description": "API to send messages to Discord by Webhook",
     "license": "MIT",
     "require": {
-        "pocketmine/pocketmine-mp": "4.*",
+        "pocketmine/pocketmine-mp": "5.*",
         "ext-curl": "*",
-        "php": "8.0.*",
-        "php-64bit": "8.0.*",
+        "php": "8.1.*",
+        "php-64bit": "8.1.*",
         "phpstan/phpstan": "*",
         "friendsofphp/php-cs-fixer": "^3.13"
     }

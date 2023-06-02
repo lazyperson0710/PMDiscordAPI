@@ -1,6 +1,8 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/bbo51dog/PMLineAPI/blob/master/LICENSE)
 
 ## About
+PM-5対応
+
 [Senderクラス](https://github.com/bbo51dog/PMDiscordAPI/blob/master/src/bbo51dog/pmdiscord/Sender.php)の廃止やPHPDocの追加などの変更を加えたものです。
 
 ## Overview
